@@ -9,6 +9,11 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-n","--name",default='finaloutput' + datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y"),type=str, help="File name for final output, default is finaloutput + the current date. You do NOT need to add file extension."
 parser.add_argument("-d","-delay",default=0, help="Optional delay between keywords for slow connections/computers(seconds).")
 
+args = parser.parse_args()
+
+name = args.name
+delay = args.delay
+
 df = pd.read_csv('keywords.csv')
 
 #open chrome
@@ -46,6 +51,7 @@ def scrape1keyword(kw):
 for kw in df.Words:
     #print("this is kw: " + kw)
     scrape1keyword(kw)
+    time.sleep(delay)
 
 outfiledf = pd.DataFrame(outputfile)
 outfiledf.to_csv(name + '.csv')
