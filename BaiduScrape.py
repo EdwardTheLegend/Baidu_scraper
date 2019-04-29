@@ -2,6 +2,12 @@ from selenium import webdriver
 from selenium.webdriver.common import keys
 import pandas as pd
 import time
+import argparse
+
+parser = argparse.ArgumentParser()
+
+parser.add_argument("-n","--name",default='finaloutput' + datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y"),type=str, help="File name for final output, default is finaloutput + the current date. You do NOT need to add file extension."
+parser.add_argument("-d","-delay",default=0, help="Optional delay between keywords for slow connections/computers(seconds).")
 
 df = pd.read_csv('keywords.csv')
 
@@ -42,5 +48,5 @@ for kw in df.Words:
     scrape1keyword(kw)
 
 outfiledf = pd.DataFrame(outputfile)
-outfiledf.to_csv('finaloutput3extra.csv')
+outfiledf.to_csv(name + '.csv')
 #print("end")
